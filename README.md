@@ -2,7 +2,7 @@
 #Please check the pdf documentation for more details which i have committed along with the rules sample
 This contains some sample rules to work with elastalert https://elastalert.readthedocs.io/en/latest/index.html
 Step-by-step guide
-Step 1:- Installation
+# Step 1:- Installation
 Windows 10:-
 
 Setup Elasticsearch Instance  --> I used version 6.8.2 the instance is hosted in https://www.elastic.co/cloud/
@@ -15,17 +15,17 @@ For Linux:- https://elastalert.readthedocs.io/en/latest/running_elastalert.html
 
 Note:- We can also run Elastalert on a container
 
- Step 2:- Create Elastalert indexes in Elasticsearch to store alerts and errors
+# Step 2:- Create Elastalert indexes in Elasticsearch to store alerts and errors
 From Elastalert Folder use this command to create required meta indexes --> elastalert-create-index 
 This will create following indexes try list indexes from the cluster using → https://host:port/_cat/indices?v
 
 
-Step 3:- Configure The global Elastalert configuration
+# Step 3:- Configure The global Elastalert configuration
 Rename the config.yaml.example file to config.yaml
 Provide the instance informations like host,port,ssl_required,username,password,etc..
 config.yaml
 
-Step 4:- Dump some data to the Elasticsearch 
+# Step 4:- Dump some data to the Elasticsearch 
 Create a spring boot application from initializer
 You can connect with Elasticsearch either by using Spring data jest/Spring data Elasticsearch
 Using Spring Data Jest use (Deprecated)
@@ -65,7 +65,7 @@ Example, Create an index with name Event and dump some data and read using → h
 
 
 
-Step 5:- Create Alert Rules and configure Alert Types
+# Step 5:- Create Alert Rules and configure Alert Types
 Create rules
 There are different types of rules you can create like any,new_term, blacklist, whitelist, frequency etc..,
 Refer this for creating a rule --> https://elastalert.readthedocs.io/en/latest/running_elastalert.html#creating-a-rule
@@ -116,7 +116,7 @@ flatline.yaml
 any_rule.yaml
 whitelist.yaml
 
-Step 7:- Testing the alert rule
+# Step 7:- Testing the alert rule
 Use this command :- elastalert-test-rule your_rules/your_rule.yaml
 This is only for test purpose this will log the details to the console, this will not send actual alerts if we want to send the real alerts we can specify the --alert flag, below are output logs of some rule types
 
@@ -218,7 +218,7 @@ self.thread_data.num_dupes = 0
 self.thread_data.alerts_sent = 0 #add
 self.scheduler = BackgroundScheduler()
 
-Step 8:- Run the Elastalert server
+# Step 8:- Run the Elastalert server
 Use this command:- python -m elastalert.elastalert --verbose --rule your_rules_dir/your_rule.yaml
 Output Log
 INFO:elastalert:Queried rule Event rule blacklist from 2020-05-21 16:02 India Standard Time to 2020-05-21 16:05 India Standard Time: 0 / 0 hits
