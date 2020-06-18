@@ -1,0 +1,71 @@
+# Alert when a login event is detected for user "admin" never before seen IP
+# In this example, "login" logs contain which user has logged in from what IP
+
+# (Optional)
+# Elasticsearch host
+es_host: 8977d5f533ca4d3ebb4dc8bbea032260.us-central1.gcp.cloud.es.io
+
+# (Optional)
+# Elasticsearch port
+es_port: 9243
+
+# (OptionaL) Connect with SSL to Elasticsearch
+use_ssl: True
+
+# (Optional) basic-auth username and password for Elasticsearch
+es_username: elastic
+es_password: sFKtDJzoZbFqgfpG1BIPSY7s
+
+# (Required)
+# Rule name, must be unique
+name: Event rule blacklist
+
+# (Required)
+# Type of alert.
+# the frequency rule type alerts when num_events events occur with timeframe time
+type: blacklist
+
+# (Required)
+# Index to search, wildcard supported
+index: event
+
+# (Required, new_term specific)
+# Monitor the field ip_address
+compare_key: name
+timestamp_field: timestamp
+timestamp_type: custom
+timestamp_format: '%Y-%m-%dT%H:%M:%S.%fZ'
+timestamp_format_expr: 'ts[:23] + ts[26:]'
+
+
+# (Optional, new_term specific)
+# This means that we will query 90 days worth of data when ElastAlert starts to find which values of ip_address already exist
+# If they existed in the last 90 days, no alerts will be triggered for them when they appear
+#terms_window_size:
+#  days: 90
+blacklist:
+    - InsufficientNumberOfOnlineVehicles
+# (Required)
+# A list of Elasticsearch filters used for find events
+# These filters are joined with AND and nested in a filtered query
+# For more info: http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html
+# We are filtering for only "login_event" type documents with username "admin"
+
+#- term:
+#    username: admin
+
+# (Required)
+# The alert is use when a match is found
+alert:
+- "email"
+
+# (required, email specific)
+# a list of email addresses to send alerts to
+email:
+- "abhilash.s@infospica.com"
+email_from_field: "alerts"
+email_add_domain: "@ucc.com"
+smtp_host: "smtp.gmail.com"
+smtp_port: 465
+smtp_ssl: true
+smtp_auth_file: 'email_auth.yaml'
